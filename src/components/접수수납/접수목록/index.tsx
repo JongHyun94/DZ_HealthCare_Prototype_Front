@@ -171,6 +171,9 @@ function RegistList() {
         if (person.pid === e.values.pid) {
           return true;
         }
+        else{
+          return false;
+        }
       });
       console.log("선택된 환자: ", selPatient);
       setSelectedPatient(selPatient);

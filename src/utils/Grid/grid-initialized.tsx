@@ -1,9 +1,8 @@
 import { OBTListGridInterface } from "luna-orbit";
 import moment from "moment";
-import { StandardDesign } from "luna-orbit/OBTDataGrid/OBTDataGridInterface";
+// import { StandardDesign } from "luna-orbit/OBTDataGrid/OBTDataGridInterface";
 import {
   getRegisterListByDate,
-  getVitalPatientLists,
 } from "../Api/접수/ApiService_접수";
 
 export const initializeRegiGrid = () => {
@@ -132,10 +131,10 @@ const getRegisterList = async (startDate) => {
   return data;
 }
 // 신체사정 Grid API
-const getVitalList = async (pid) => {
-  let result = await getVitalPatientLists(pid);
-  return result;
-};
+// const getVitalList = async (pid) => {
+//   let result = await getVitalPatientLists(pid);
+//   return result;
+// };
 export function initializeVitalGrid(): any {
   // console.log("init: db:", registerListForDB);
   const grid = new OBTListGridInterface("grid", {

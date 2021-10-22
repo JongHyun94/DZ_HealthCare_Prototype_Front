@@ -3,6 +3,7 @@ import { OBTButton, OBTSnackbar } from "luna-orbit";
 import { useState } from "react";
 import PatientInfoTable from "./기본정보";
 import PatientQualificationTable from "./자격정보";
+import PatientExtendTable from "./추가정보";
 function PatientCreateForm(props) {
   const { open, close, header } = props;
   const [successSnackbar, setSuccessSnackbar] = useState(false);
@@ -30,13 +31,13 @@ function PatientCreateForm(props) {
             <div className={style.PatientCreateForm_main}>
              <PatientInfoTable/>
              <PatientQualificationTable/>
+             <PatientExtendTable/>
             </div>
             <div className={style.PatientCreateForm_footer}>
               <OBTButton labelText={"취소"} onClick={close}></OBTButton>
               <OBTButton labelText={"등록"} onClick={createBtn} theme={OBTButton.Theme.blue}></OBTButton>
             </div>
           </div>
-
         ) : 
         null}
       </div>

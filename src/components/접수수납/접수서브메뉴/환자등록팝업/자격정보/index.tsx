@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ButtonGroupByLee from "../common_component/ButtonGroupByLee";
 import "./style.css";
+import HealthInsurance from "./건강보험&의료급여";
+import IndustrialInsurance from "./산재보험";
 import CarInsurance from "./자동차보험";
 function PatientQualificationTable() {
   const [selectedQualification, setSelectedQualification] = useState(1);
@@ -24,7 +26,7 @@ function PatientQualificationTable() {
       </div>
       <div className="PatientQualificationTable_content">
         {qBtns === "자동차보험"?
-         <><CarInsurance/></> : (qBtns === "산재보험" ? <></> : <></>)}
+         <CarInsurance/> : (qBtns === "산재보험" ? <IndustrialInsurance/> : <HealthInsurance/>)}
       </div>
     </div>
   );

@@ -1,0 +1,23 @@
+.MedicalExpense{
+  display: flex;
+  flex-direction: column;
+}
+.MedicalExpense_header{
+  display: flex;
+  flex-direction: row;
+}
+.MedicalExpense_header_left{
+  flex-grow: 1;
+  font-size: small;
+}
+.MedicalExpense_header_right{
+  font-size: 4px;
+}
+.MedicalExpense_content{
+  width: 300px;
+  height: 700px;
+  overflow-y: scroll;
+}
+.MedicalExpense_content > tbody > tr th td{
+  font-size: x-small;
+}

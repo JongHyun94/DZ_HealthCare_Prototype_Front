@@ -5,7 +5,7 @@ import PatientSearchBar from '../../접수수납/환자검색바';
 const SubHeader = () => {
   const [openSnb, setOpenSnb] = useRecoilState<boolean>(openSnbState);
   const text = useRecoilValue<string>(subHeaderText);
-  const subMenuList = useRecoilValue<string[]>(subMenuListState);
+  //const subMenuList = useRecoilValue<string[]>(subMenuListState);
 
   return (
     // <div className="sub-header" style={{ backgroundColor: '#60bfcc' }}>

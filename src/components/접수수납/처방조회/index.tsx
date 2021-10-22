@@ -13,7 +13,7 @@ function PrescriptionInquiry() {
 
   const selectedPatient = useRecoilValue(selPatientDB);
 
-  const [presGrid, setPresGrid] = useState(() => initializePresGrid());
+  const [presGrid] = useState(() => initializePresGrid());
   
   const changeHandler = () => {};
 

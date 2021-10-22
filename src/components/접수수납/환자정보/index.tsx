@@ -4,7 +4,7 @@ import { IPatient } from "../../../types/접수/Interface_접수";
 import { selPatientDB } from "../../../atoms/접수_수납/Recoils_접수_수납DB";
 import { calcAge } from "../../../utils/Calc/aboutUser";
 import VitalSign from "../신체사정";
-import { OBTButton, OBTSnackbar } from "luna-orbit";
+import { OBTButton } from "luna-orbit";
 import patientInfoIcon from "./PatientInfo_ICON.png";
 import blacklistIcon from "./BlackList_ICON.png";
 import vipIcon from "./VIP_ICON.png";
@@ -57,13 +57,6 @@ function PatientInfo() {
             }}
             onClick={() => openModal()}
           />
-          <React.Fragment>
-            <PatientCreateForm
-              open={modalOpen}
-              close={closeModal}
-              header={"환자등록"}
-            />
-          </React.Fragment>
         </div>
       </div>
       {/* 본문부분 */}
@@ -136,6 +129,13 @@ function PatientInfo() {
           false
         )}
       </div>
+      <React.Fragment>
+        <PatientCreateForm
+          open={modalOpen}
+          close={closeModal}
+          header={"환자등록"}
+        />
+      </React.Fragment>
     </div>
   );
 }

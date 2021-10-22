@@ -1,9 +1,7 @@
 import PatientVisitHistory from './내원이력';
-import VitalSign from './신체사정';
 import RegistList from './접수목록';
 import MedicalExpense from './진료비내역';
 import PrescriptionInquiry from './처방조회';
-import PatientSearchBar from './환자검색바';
 import PatientInfo from './환자정보';
 import './Regist.css';
 import Register from './접수';

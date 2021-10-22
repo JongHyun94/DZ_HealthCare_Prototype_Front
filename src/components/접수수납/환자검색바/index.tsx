@@ -23,7 +23,7 @@ function PatientSearchBar() {
   // 검색창 상태
   const [searchKeyword, setSerachKeyword] = useState('');
   // progress 상태
-  const [progress, setProgress] = useState(false);
+  // const [progress, setProgress] = useState(false);
   // 선택된 진료의 상태
   const setSelectedDoctor = useSetRecoilState(selDoctor);
 
