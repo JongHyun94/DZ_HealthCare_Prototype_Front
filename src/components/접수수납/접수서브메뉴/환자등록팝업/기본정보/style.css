@@ -1,0 +1,8 @@
+.PatientInfoTable{
+  display: flex;
+  flex-direction: column;
+}
+
+.PatientInfoTable_content th{
+  width: 80px;
+}

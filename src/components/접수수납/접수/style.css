@@ -1,0 +1,52 @@
+.Register_header {
+  border-bottom: lightgray 1px solid;
+  padding: 5px;
+}
+.Register_header_icon{
+
+}
+.Register_header_title{
+  font-size: 15px;
+}
+
+.Register_contents{
+  display: flex;
+  flex-direction: column;
+}
+.Register_contents_line{
+  display: flex;
+  flex-direction: row;
+  width: calc(100%-30px);
+  height: 50px;
+  margin: 10px;
+  justify-content: space-between;
+}
+.Register_contents_line_item{
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+}
+.Register_contents_line_item_label{
+  font-size: 12px;
+}
+.Register_contents_line_item_selectbox{
+  font-size: 12px;
+}
+.Register_contents_line_memo{
+
+}
+.Register_footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 10px;
+}
+.Register_footer_check{
+
+}
+.Register_footer_initBtn{
+  padding-left: 5px;
+}
+.Register_footer_createBtn{
+  padding-left: 5px;
+}

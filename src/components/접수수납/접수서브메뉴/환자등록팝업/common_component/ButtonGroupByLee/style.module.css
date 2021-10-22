@@ -1,0 +1,8 @@
+.normal {
+  border: none;
+  background-color: white;
+  padding: 5px;
+}
+.clicked {
+  color: #009bdf;
+}

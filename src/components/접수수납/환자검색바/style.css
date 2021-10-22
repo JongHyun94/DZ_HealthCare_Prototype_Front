@@ -1,0 +1,83 @@
+.PatientSearchBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+.PatientSearchBar_PatientInfo {
+  display: flex;
+  flex-direction: row;
+  padding-left: 1%;
+  /* width: 400px; */
+  /* flex-grow: 2; */
+}
+.PatientSearchBar_SearchBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  /* flex-grow: 1; */
+  padding-right: 10px;
+}
+.PatientSearchBar_PatientInfo_search{
+  display: flex;
+  flex-direction: row;
+  /* flex-grow: 1; */
+}
+.PatientSearchBar_SearchBox_searchBox {
+  display: flex;
+  flex-direction: row;
+  padding-left: 5px;
+}
+.PatientSearchBar_SearchBox_searchBtn{
+  display: flex;
+  flex-direction: row;
+  padding-left: 5px;
+}
+.PatientSearchBar_SearchBox_initBtn {
+  display: flex;
+  flex-direction: row;
+}
+
+.PatientSearchBar_PatientInfo_info {
+  display: flex;
+  flex-direction: row;
+  padding-left: 5px;
+  align-items: center;
+  /* width: 400px; */
+  /* flex-grow: 5; */
+}
+
+.PatientSearchBar_PatientInfo_info_icon {
+  display: flex;
+  flex-direction: row;
+  padding-left: 5px;
+
+}
+.PatientSearchBar_PatientInfo_info_name{
+  font-size: 1px;
+  margin: 1px;
+  width: 30px;
+}
+.PatientSearchBar_PatientInfo_info_id{
+  font-size: 1px;
+  margin: 1px;
+  width: 70px;
+}
+.PatientSearchBar_PatientInfo_info_sexAge{
+  font-size: 1px;
+  margin: 1px;
+  width: 55px;
+}
+.PatientSearchBar_PatientInfo_info_birth{
+  font-size: 1px;
+  margin: 1px;
+  width: 50px;
+}
+
+.PatientSearchBar_PatientInfo_info_detail{
+  display: flex;
+  flex-direction: row;
+  padding-left: 1%;
+  width: 90px;
+  /* flex-grow: 1; */
+}

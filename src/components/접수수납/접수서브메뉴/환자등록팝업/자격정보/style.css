@@ -1,0 +1,4 @@
+.PatientQualificationTable{
+  display: flex;
+  flex-direction: column;
+}

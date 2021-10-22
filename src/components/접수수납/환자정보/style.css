@@ -1,0 +1,98 @@
+.PatientInfo{
+  height: 500px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.PatientInfo_upsdide{
+  display: flex;
+  flex-direction: row;
+  border-bottom: lightgray 1px solid;
+}
+
+.PatientInfo_centerside{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.PatientInfo_downside{
+  display: flex;
+  flex-direction: column;
+}
+
+.PatientInfo_upsdide_title{
+  display: flex;
+  flex-direction: row;
+  flex-grow: 2;
+  margin: 5px;
+}
+.PatientInfo_upsdide_title_info{
+  font-size: small;
+}
+.PatientInfo_upsdide_newCreateBtn{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-grow: 1;
+  margin: 5px;
+}
+
+.PatientInfo_centerside_idWithBtns{
+  display: flex;
+  flex-direction: row;
+  margin: 3px;
+  align-items: center;
+}
+
+.PatientInfo_centerside_idWithBtns_id{
+  display: flex;
+  flex-direction: row;  
+  padding: 4px;
+}
+.PatientInfo_centerside_idWithBtns_btns{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
+.PatientInfo_centerside_info1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 3px!important;
+}
+.PatientInfo_centerside_info1_name{
+  margin: 4px;
+}
+.PatientInfo_centerside_info1_age{
+  margin: 4px;
+  font-size: 2.5px;
+}
+.PatientInfo_centerside_info1_birth{
+  margin: 4px;
+  font-size: 2.5px;
+}
+
+.PatientInfo_centerside_info2{
+  display: flex;
+  flex-direction: row;
+  font-size: 2px;
+}
+.PatientInfo_centerside_info2_address{
+  margin: 4px;
+}
+.PatientInfo_centerside_info2_phone{
+  margin: 4px;
+}
+
+.PatientInfo_downside_bookInfo{
+  display: flex;
+  flex-wrap: wrap;
+}
+.PatientInfo_downside_bookInfo_select{
+  width: 33%;
+}
