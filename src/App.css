@@ -1,0 +1,161 @@
+.App {
+  width: 100%;
+  height: 100%;
+}
+.AppSnb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: #333948;
+  z-index: 10;
+  transition: all 0.5s;
+  width: 48px;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  text-decoration: none !important;
+}
+.AppSnb:hover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: #333948;
+  z-index: 10;
+  transition: all 0.5s;
+  width: 192px;
+}
+.AppSnb::after {
+  transition: all 0.5s;
+}
+.AppSnb .fix {
+  width: 48px;
+  height: 48px;
+}
+.menuLink {
+  text-decoration: none;
+}
+.menuItem {
+  height: 48px;
+  /* background-color: firebrick; */
+  align-items: center;
+  margin: 6px;
+  /* border-top: lightgray 1px solid; */
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+.menuItem:hover {
+  background-color: #16181f;
+}
+.menuItem > .menuItem_name {
+  color: white;
+  margin: 6px;
+  text-align: center;
+  width: 96px;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  transition: all 0.5s;
+  text-decoration: none;
+}
+.checked {
+  background-color: #16161d;
+}
+.MainArea {
+  position: absolute;
+  top: 0;
+  left: 48px;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  overflow: hidden;
+  z-index: 1;
+  overflow-x: auto;
+  background-color: gray;
+}
+.AppHeader {
+  height: 48px;
+  background-color: rgb(251, 246, 255);
+}
+.MainIcon{
+  margin-left: 4px;
+  margin-right: 4px;
+}
+.AppContent {
+  width: calc(100%);
+  height: calc(100% - 48px);
+  background-color: rgb(249, 250, 248);
+  display: flex;
+  flex-direction: row;
+}
+.PagesClose{
+  height: 100%;
+  width: calc(100% - 20px);
+  background-color: lightgray;
+}
+.AppMessenger {
+  width: 0;
+  display: none;
+}
+@media (min-width: 1280px) {
+  .AppContent {
+    width: calc(100%);
+    height: calc(100% - 48px);
+    /* background-color: rgb(19, 170, 27); */
+  }
+  .PagesOpen {
+    height: 100%;
+    width: calc(100% - 360px);
+    background-color: lightgray;
+  }
+  .PagesClose{
+    height: 100%;
+    width: calc(100% - 20px);
+    background-color: lightgray;
+  }
+  .AppMessenger {
+    float: right;
+    width: 20px;
+    height: calc(100%);
+    display: flex;
+    flex-direction: row;
+    transition: all 0.5s;
+  }
+  .AppMessenger.open{
+    float: right;
+    width: 360px;
+    height: calc(100%);
+    display: flex;
+    flex-direction: row;
+    /* transition: all 0.5s; */
+  }
+  .BtnArea {
+    /* background-color: rgb(43, 226, 211); */
+    width: 20px;
+    display: flex;
+    align-items: center;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    transition: all 0.5s;
+  }
+  .MsgOpnBtn {
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 20px solid red;
+  }
+  .ContentArea {
+    background-color: rgb(73, 226, 43);
+    width: 340px;
+    transition: all 0.5s;
+  }
+}

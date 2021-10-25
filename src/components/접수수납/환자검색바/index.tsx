@@ -11,19 +11,14 @@ import patientInfoIcon from "./PatientInfo_ICON.png";
 import loupe from "./loupe.png";
 import undo from "./undo.png";
 function PatientSearchBar() {
-  // 검색된 환자 리스트 local
-  //const [filterPatientList, setFilterPatientList] = useRecoilState(patientList);
   // 검색된 환자 리스트 DB
   const [filterPatientListDB, setFilterPatientListDB] = useRecoilState<IPatient[] | undefined>(patientListDB);
   
-  // 선택된 환자 정보 local
-  //const [selectedPatient, setSelectedPatient] = useRecoilState<Patient | undefined>(selPatient);
   // 선택된 환자 정보 DB
   const [selectedPatientDB, setSelectedPatientDB] = useRecoilState<IPatient | undefined>(selPatientDB);
   // 검색창 상태
   const [searchKeyword, setSerachKeyword] = useState('');
-  // progress 상태
-  // const [progress, setProgress] = useState(false);
+
   // 선택된 진료의 상태
   const setSelectedDoctor = useSetRecoilState(selDoctor);
 

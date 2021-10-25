@@ -1,9 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  Doctor,
-  doctorList,
-  selDoctor,
-} from "../../../atoms/접수_수납/Recoils_접수_수납";
+import { useRecoilState } from "recoil";
 import "./style.css";
 import {
   OBTMultiLineTextField,
@@ -393,7 +388,7 @@ function Register() {
           <div className="Register_footer">
             {/* 접수 버튼 */}
             <div className="Register_footer_check">
-              <OBTButton
+              {/* <OBTButton
                 labelText="건강검진접수"
                 type={OBTButton.Type.small}
                 theme={
@@ -403,7 +398,7 @@ function Register() {
                 }
                 onClick={checkHealthRegister}
                 width="80px"
-              />
+              /> */}
             </div>
             {newRegister.regiDate < moment().format("YYYYMMDD") ? (
               false

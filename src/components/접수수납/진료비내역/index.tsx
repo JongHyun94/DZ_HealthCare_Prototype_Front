@@ -1,4 +1,3 @@
-// import fakeImg from "./진료비내역.png"
 import "./style.css";
 import {
   OBTTextField,
@@ -8,6 +7,7 @@ import {
   OBTDatePicker,
   OBTMultiLineTextField,
   OBTNumberField,
+  OBTSplitButton,
   OBTButton,
 } from "luna-orbit";
 import React, { useState } from "react";
@@ -132,6 +132,46 @@ function MedicalExpense() {
           false
         )}
       </div>
+      {selectedPatient ? (
+          <>
+      <div className="MedicalExpense_payment">
+        <div className="MedicalExpense_payment_totalprice">
+          <div className="MedicalExpense_payment_totalprice_left">
+            납부할 금액
+          </div>
+          <div className="MedicalExpense_payment_totalprice_right">
+            123,456원
+          </div>
+        </div>
+        <div className="MedicalExpense_payment_btns">
+          <div className="MedicalExpense_payment_btns_cancel">
+            <button className="payCancelBtn">취소/환불</button>
+          </div>
+          <div className="MedicalExpense_payment_btns_pays">
+            <div className="MedicalExpense_payment_btns_pays_pay">
+              {/* <button className="payBtn">수납</button> */}
+              <OBTSplitButton 
+                value={[
+                  {key: 0, labelText:"수납"},
+                  {key: 1, labelText:"전체출력"},
+                  {key: 2, labelText:"환자보관용"},
+                  {key: 3, labelText:"약국제출용"}]} 
+                motionType={OBTSplitButton.MotionType.dropDown} />
+            </div>
+            <div className="MedicalExpense_payment_btns_pays_receipt">
+              <button className="receiptBtn">수납+영수증출력</button>
+            </div>
+          </div>
+        </div>
+        <div className="MedicalExpense_payment_extends">
+        <div className="MedicalExpense_payment_extends_item">환자처방전</div>
+        <div className="MedicalExpense_payment_extends_item">진단서</div>
+        <div className="MedicalExpense_payment_extends_item">영수증</div>
+        <div className="MedicalExpense_payment_extends_item">진료비 세부 산정내역</div>
+        </div>
+      </div>
+      </>
+      ): false}
     </div>
   );
 }

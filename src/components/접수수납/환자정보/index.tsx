@@ -14,8 +14,6 @@ import React, { useState } from "react";
 import PatientCreateForm from "../접수서브메뉴/환자등록팝업";
 
 function PatientInfo() {
-  // 선택된 환자 정보 local
-  //const setSelectedPatient = useRecoilValue<Patient | undefined>(selPatient);
   // 선택된 환자 정보 DB
   const selectedPatientDB = useRecoilValue<IPatient | undefined>(selPatientDB);
 

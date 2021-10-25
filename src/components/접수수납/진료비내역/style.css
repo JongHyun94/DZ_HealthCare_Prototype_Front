@@ -21,3 +21,76 @@
 .MedicalExpense_content > tbody > tr th td{
   font-size: x-small;
 }
+.MedicalExpense_payment{
+  width: 100%;
+  height: 148px;
+  background-color: #26325c;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+.MedicalExpense_payment_totalprice{
+  margin: 15px;
+  width: calc(100% - 30px);
+  height: 44px;
+  background-color: #16181f;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.MedicalExpense_payment_totalprice_left{
+  font-size: 8px;
+  color: white;
+  margin: 5px;
+}
+.MedicalExpense_payment_totalprice_right{
+  color: #1fa6f5;
+  margin: 5px;
+}
+.MedicalExpense_payment_btns{
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  justify-content: space-between;
+}
+.payCancelBtn{
+  color: white;
+  background-color: transparent;
+  border: white solid 1px;
+  border-radius: 10%;
+  padding: 4px;
+}
+
+.MedicalExpense_payment_btns_pays{
+  display: flex;
+  flex-direction: row;
+}
+.payBtn{
+  color: white;
+  background-color: #1f2df5;
+  border: #1f2df5 solid 1px;
+  border-radius: 10%;
+  padding: 4px;
+  margin-right: 10px;
+}
+.receiptBtn{
+  color: white;
+  background-color: #1fa6f5;
+  border: #1fa6f5 solid 1px;
+  border-radius: 10%;
+  padding: 4px;
+}
+.MedicalExpense_payment_extends{
+  padding-left: 15px;
+  display: flex;
+  flex-direction: row;
+  font-size: 4px;
+  color: lightgray;
+}
+.MedicalExpense_payment_extends_item{
+  margin: 3px;
+  cursor: pointer;
+}
