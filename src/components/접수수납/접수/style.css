@@ -1,12 +1,14 @@
 .Register_header {
   border-bottom: lightgray 1px solid;
   padding: 5px;
+  display: flex;
+  flex-direction: row;
 }
 .Register_header_icon{
 
 }
 .Register_header_title{
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .Register_contents{

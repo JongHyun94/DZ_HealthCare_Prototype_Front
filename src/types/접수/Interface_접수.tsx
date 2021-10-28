@@ -22,6 +22,7 @@ interface IPatient {
   cntc_tel: string;
   clph_no: string;
   basc_addr: string;
+  pMemo: string;
 }
 
 /*
@@ -54,6 +55,7 @@ interface IRegister {
   user_nm: string;
   pt_arvl_dt: string;
   rcpn_stat_cd: string;
+  rcpn_stat: string;
 }
 
 /*

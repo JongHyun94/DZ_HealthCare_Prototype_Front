@@ -1,6 +1,6 @@
 import { OBTListGridInterface } from "luna-orbit";
 import moment from "moment";
-// import { StandardDesign } from "luna-orbit/OBTDataGrid/OBTDataGridInterface";
+import { StandardDesign } from "luna-orbit/OBTDataGrid/OBTDataGridInterface";
 import {
   getRegisterListByDate,
 } from "../Api/접수/ApiService_접수";
@@ -68,44 +68,52 @@ export const initializeRegiGrid = () => {
         alignment: "center",
       },
       {
-        name: "rcpn_stat_cd",
+        name: "rcpn_stat",
         header: "상태",
-        type: "mask",
-        maskType: "custom",
-        editMask: "string",
-        customMaskCallback: (value) => {
-          if (value === "V") {
-            return "예약";
-          } else if (value === "R") {
-            return "접수";
-          } else if (value === "M") {
-            return "진료중";
-          } else if (value === "T") {
-            return "수납대기";
-          } else if (value === "D") {
-            return "완료";
-          } else if (value === "C") {
-            return "취소";
-          } else if (value === "W") {
-            return "보류";
-          } else {
-            return "알수없는값"
-          }
-        },
-        width: 40,
+        type: "text",
+        width: 70,
         alignment: "center",
-        // useImageLabel: true,
-        // imageLabelBackgroundColor: (value) => {
-        //   if (value === "A") {
-        //     return StandardDesign.MessageColorRGB.negative1;
-        //   } else if (value === "B") {
-        //     return StandardDesign.MessageColorRGB.positive2;
-        //   } else if (value === "C") {
-        //     return StandardDesign.MessageColorRGB.neutral;
-        //   }
-        //   return StandardDesign.MessageColorRGB.positive3;
-        // },
+        useImageLabel: true,
+        imageLabelBackgroundColor: (value) => {
+          if (value === "예약") {
+            return '#a708f1';
+          } else if (value === "접수") {
+            return '#02b4fa';
+          } else if (value === "진료중") {
+            return StandardDesign.MessageColorRGB.inProgress;
+          } else if (value === "수납대기") {
+            return StandardDesign.MessageColorRGB.pending1;
+          } else if (value === "완료") {
+            return StandardDesign.MessageColorRGB.neutral;
+          } else if (value === "취소") {
+            return StandardDesign.MessageColorRGB.negative1;
+          } else if (value === "보류") {
+            return StandardDesign.MessageColorRGB.negative2;
+          } 
+          return StandardDesign.MessageColorRGB.pending2;
+        },
       },
+              // maskType: "custom",
+        // editMask: "string",
+        // customMaskCallback: (value) => {
+        //   if (value === "V") {
+        //     return "예약";
+        //   } else if (value === "R") {
+        //     return "접수";
+        //   } else if (value === "M") {
+        //     return "진료중";
+        //   } else if (value === "T") {
+        //     return "수납대기";
+        //   } else if (value === "D") {
+        //     return "완료";
+        //   } else if (value === "C") {
+        //     return "취소";
+        //   } else if (value === "W") {
+        //     return "보류";
+        //   } else {
+        //     return "알수없는값"
+        //   }
+        // },
     ])
     .setProvider({
       // 데이터 관련 interface 사용 → * Interface 속성 참고 *

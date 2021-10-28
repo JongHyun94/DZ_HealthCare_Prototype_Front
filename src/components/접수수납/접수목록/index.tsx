@@ -13,14 +13,17 @@ import {
   regiListDB,
   regiStartDate,
   selPatientDB,
+  selRegiDB,
 } from "../../../atoms/접수_수납/Recoils_접수_수납DB";
 import { OBTListGrid } from "luna-orbit";
-import { getRegisterListByDate } from "../../../utils/Api/접수/ApiService_접수";
+import { getPatient, getRegisterListByDate } from "../../../utils/Api/접수/ApiService_접수";
 import moment from "moment";
 import { initializeRegiGrid } from "../../../utils/Grid/grid-initialized";
 import { ReadPageEventArgs } from "../../../../../luna-orbit/OBTListGrid/OBTListGridEvents";
 
 function RegistList() {
+  // 선택된 접수상태 
+  const [selectedRegister, setSelectedRegister] = useRecoilState(selRegiDB);
   // const [registerListForDB, setRegisterListForDB] = useState([]);
   const [registerListForDB, setRegisterListForDB] = useRecoilState(regiListDB);
 
@@ -28,10 +31,10 @@ function RegistList() {
 
   const [startDate, setStartDate] = useRecoilState(regiStartDate);
 
-  const [regiState, setRegiState] = useState("");
+  const [regiState, setRegiState] = useState("전체");
 
   // 선택된 버튼 상태
-  const [selectedBtn, setSelectedBtn] = useState("");
+  const [selectedBtn, setSelectedBtn] = useState("전체");
 
   const [regiCount, setRegiCount] = useState({
     V: 0,
@@ -83,29 +86,69 @@ function RegistList() {
     });
   };
   const getRegisterList = async (startDate) => {
-    console.log("startDate: ",startDate);
+    console.log("startDate: ", startDate);
     let data = await getRegisterListByDate(
       moment(startDate).format("YYYYMMDD")
     );
-    console.log("dbData: ",data)
+    console.log("dbData: ", data);
     // let data = await getRegisterListByDateAndState(moment(startDate).format("YYYYMMDD"), regiState)
     setRegisterListForDB(data);
     countRegisterState(data);
     return data;
   };
 
+  // if (state === "전체") {
+  //   return registerListForDB;
+  // } else {
+  //   let CopyList = JSON.parse(JSON.stringify(registerListForDB));
+  //   let sortingList = CopyList.filter((item) => {
+  //     if (item.rcpn_stat_cd === state) {
+  //       return item;
+  //     }
+  //   });
+  //   console.log("sort: ", sortingList);
+  //   return sortingList;
+  // }
   const getSortingStateList = (state) => {
-    if (state === "") {
-      return registerListForDB;
-    } else {
-      let CopyList = JSON.parse(JSON.stringify(registerListForDB));
+    let CopyList = JSON.parse(JSON.stringify(registerListForDB));
+    if (state === "접수") {
       let sortingList = CopyList.filter((item) => {
-        if (item.rcpn_stat_cd === state) {
+        if (item.rcpn_stat_cd === "R" || item.rcpn_stat_cd === "V") {
           return item;
+        } else {
+          return false;
         }
       });
-      console.log("sort: ", sortingList);
       return sortingList;
+    } else if (state === "진료") {
+      let sortingList = CopyList.filter((item) => {
+        if (item.rcpn_stat_cd === "M" || item.rcpn_stat_cd === "W") {
+          return item;
+        } else {
+          return false;
+        }
+      });
+      return sortingList;
+    } else if (state === "수납대기") {
+      let sortingList = CopyList.filter((item) => {
+        if (item.rcpn_stat_cd === "T") {
+          return item;
+        } else {
+          return false;
+        }
+      });
+      return sortingList;
+    } else if (state === "완료") {
+      let sortingList = CopyList.filter((item) => {
+        if (item.rcpn_stat_cd === "D") {
+          return item;
+        } else {
+          return false;
+        }
+      });
+      return sortingList;
+    } else {
+      return CopyList;
     }
   };
   // 검색된 환자 리스트
@@ -164,21 +207,39 @@ function RegistList() {
 
   const [regiGrid, setRegiGrid] = useState(() => initializeRegiGrid());
 
+  // 클릭시 데이터 바인딩 
   regiGrid.onClicked.add((e) => {
-    console.log("click event", e.values.pid);
-    if (filterPatientListDB) {
-      let selPatient = filterPatientListDB.find((person) => {
-        if (person.pid === e.values.pid) {
+    console.log("click pid", e.values.pid);
+    console.log("click rcpn_sqno", e.values.rcpn_sqno);
+    findPatient(e.values.pid);
+    if(e.values.rcpn_sqno){
+      let selRegi = registerListForDB.find((regi : any) => {
+        if(regi.rcpn_sqno === parseInt(e.values.rcpn_sqno)){
           return true;
         }
-        else{
-          return false;
-        }
       });
-      console.log("선택된 환자: ", selPatient);
-      setSelectedPatient(selPatient);
+      setSelectedRegister(selRegi);
+      // console.log("hihihi",selRegi);
     }
+    
+    // if (filterPatientListDB) {
+    //   let selPatient = filterPatientListDB.find((person) => {
+    //     if (person.pid === e.values.pid) {
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   });
+    //   console.log("선택된 환자: ", selPatient);
+    //   setSelectedPatient(selPatient);
+    // }
   });
+
+  const findPatient = async(pid) => {
+    let selectedPatientDB = await getPatient(pid);
+    console.log(selectedPatientDB);
+    setSelectedPatient(selectedPatientDB);
+  };
 
   const changeHandler = () => {};
 
@@ -189,15 +250,16 @@ function RegistList() {
 
   // Hook
   useEffect(() => {
-    console.log("first []")
+    console.log("first []");
     let data = getRegisterList(startDate);
 
     regiGrid.readData({
-      readPageCallback(e: ReadPageEventArgs): Promise<any[] | null | undefined> {
-          return Promise.resolve(data);
-      }
-  }
-);
+      readPageCallback(
+        e: ReadPageEventArgs
+      ): Promise<any[] | null | undefined> {
+        return Promise.resolve(data);
+      },
+    });
     countRegisterState(registerListForDB);
   }, []);
 
@@ -215,8 +277,8 @@ function RegistList() {
       },
     });
     regiGrid.readData();
-    setRegiState("");
-    setSelectedBtn("");
+    setRegiState("전체");
+    setSelectedBtn("전체");
   }, [startDate]);
 
   useEffect(() => {
@@ -301,32 +363,32 @@ function RegistList() {
         {/* filter */}
         <div className="RegistList_header_3">
           <button
-            className={selectedBtn === "" ? "customBtn" : "customBtn2"}
-            onClick={() => getTotalRegisters("")}
+            className={selectedBtn === "전체" ? "customBtn" : "customBtn2"}
+            onClick={() => getTotalRegisters("전체")}
           >
             전체 {registerListForDB.length}
           </button>
           <button
-            className={selectedBtn === "R" ? "customBtn" : "customBtn2"}
-            onClick={() => getTotalRegisters("R")}
+            className={selectedBtn === "접수" ? "customBtn" : "customBtn2"}
+            onClick={() => getTotalRegisters("접수")}
           >
-            예약/당일 {regiCount.R}
+            접수 {(regiCount.R + regiCount.V)}
           </button>
           <button
-            className={selectedBtn === "M" ? "customBtn" : "customBtn2"}
-            onClick={() => getTotalRegisters("M")}
+            className={selectedBtn === "진료" ? "customBtn" : "customBtn2"}
+            onClick={() => getTotalRegisters("진료")}
           >
-            진료 {regiCount.M}
+            진료 {(regiCount.M + regiCount.W)}
           </button>
           <button
-            className={selectedBtn === "T" ? "customBtn" : "customBtn2"}
-            onClick={() => getTotalRegisters("T")}
+            className={selectedBtn === "수납대기" ? "customBtn" : "customBtn2"}
+            onClick={() => getTotalRegisters("수납대기")}
           >
             수납대기 {regiCount.T}
           </button>
           <button
-            className={selectedBtn === "D" ? "customBtn" : "customBtn2"}
-            onClick={() => getTotalRegisters("D")}
+            className={selectedBtn === "완료" ? "customBtn" : "customBtn2"}
+            onClick={() => getTotalRegisters("완료")}
           >
             완료 {regiCount.D}
           </button>

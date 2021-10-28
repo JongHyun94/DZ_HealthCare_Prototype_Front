@@ -9,25 +9,32 @@ import {
 } from "luna-orbit";
 import { useState } from "react";
 import moment from "moment";
-import { selPatientDB } from "../../../atoms/접수_수납/Recoils_접수_수납DB";
+import {
+  selPatientDB,
+  selRegiDB,
+} from "../../../atoms/접수_수납/Recoils_접수_수납DB";
 import { createNewRegister } from "../../../utils/Api/접수/ApiService_접수";
 import { useEffect } from "react";
+import docIcon from "./docIcon.png";
 
 function Register() {
   // 선택된 환자
   const [selectedPatient, setSelectedPatient] = useRecoilState(selPatientDB);
+  // 선택된 접수
+  const [selectedRegister, setSelectedRegister] = useRecoilState<
+    any | undefined
+  >(selRegiDB);
   // 의사리스트 정보
   // const doctorLists = useRecoilValue<Doctor[]>(doctorList);
   const doctorLists = [
-    { value: "doctor1", text: "의사1" },
-    { value: "doctor1", text: "의사2" },
-    { value: "doctor1", text: "의사3" },
-    { value: "doctor1", text: "의사4" },
-    { value: "lab2", text: "의사5" },
+    { value: "", text: "선택하세요" },
+    { value: "doctor1", text: "이기훈" },
+    { value: "doctor2", text: "김의사" },
   ];
   // 선택된 의사 정보
   // const [selectedDoctor, setSelectedDoctor] = useRecoilState<any>(selDoctor);
   const timeList = [
+    { value: "", text: "선택하세요" },
     { value: "0900", text: "09:00" },
     { value: "0930", text: "09:30" },
     { value: "1000", text: "10:00" },
@@ -50,13 +57,15 @@ function Register() {
   ];
 
   const regiList = [
+    { value: "", text: "선택하세요" },
     { value: "1", text: "초진" },
     { value: "2", text: "재진" },
-    { value: "3", text: "대리접수" },
-    { value: "4", text: "신환" },
+    { value: "3", text: "신환" },
+    // { value: "4", text: "대리접수" },
   ];
 
   const insureList = [
+    { value: "", text: "선택하세요" },
     { value: "1", text: "일반" },
     { value: "2", text: "국민건강보험" },
     { value: "3", text: "의료급여" },
@@ -67,23 +76,26 @@ function Register() {
   ];
 
   const insureSubList = [
-    { value: "1", text: "선택하세요" },
-    { value: "2", text: "선택2" },
+    { value: "", text: "선택하세요" },
+    { value: "1", text: "일반" },
+    { value: "2", text: "차상위C" },
+    { value: "3", text: "차상위E" },
+    { value: "4", text: "차상위F" },
   ];
 
   const purposeList = [
-    { value: "1", text: "선택하세요" },
-    { value: "2", text: "진료" },
-    { value: "3", text: "상담" },
-    { value: "4", text: "진료기록부 발급" },
-    { value: "5", text: "직접입력" },
+    { value: "", text: "선택하세요" },
+    { value: "1", text: "진료" },
+    { value: "2", text: "상담" },
+    { value: "3", text: "진료기록부 발급" },
+    { value: "4", text: "대리접수" },
   ];
 
   const wayList = [
-    { value: "1", text: "선택하세요" },
-    { value: "2", text: "온라인" },
-    { value: "3", text: "지역광고" },
-    { value: "4", text: "지인소개" },
+    { value: "", text: "선택하세요" },
+    { value: "1", text: "온라인" },
+    { value: "2", text: "지역광고" },
+    { value: "3", text: "지인소개" },
   ];
 
   // 진료일자
@@ -101,18 +113,19 @@ function Register() {
   // 접수 상태
   const [newRegister, setNewRegister] = useState({
     regiDate: moment().format("YYYYMMDD"),
-    regiTime: "1000",
-    regiDoctor: "doctor1",
-    regiState: "1",
-    regiInsureanceStae: "1",
-    regiSubInsureanceState: "1",
-    regiPurpose: "1",
-    regiWay: "1",
+    regiTime: "",
+    regiDoctor: "",
+    regiState: "",
+    regiInsureanceStae: "",
+    regiSubInsureanceState: "",
+    regiPurpose: "",
+    regiWay: "",
     regiTextarea: "",
     regiHealthCheck: false,
 
     regiHsptCd: "",
     pid: "",
+    rcpn_stat_cd: "",
   });
 
   // 스낵바 상태
@@ -153,18 +166,17 @@ function Register() {
   const createRegister = async (e) => {
     if (newRegister) {
       let validation = true;
-
-      if (newRegister.regiDate !== moment().format("YYYYMMDD")) {
+      if (newRegister.regiDoctor === "") {
+        validation = false;
+        setWarnMsg("진료의를 선택해주세요.");
+        setWarning(true);
+      } else if (newRegister.regiDate !== moment().format("YYYYMMDD")) {
         validation = false;
         setWarnMsg("날짜를 정확히 선택해주세요.");
         setWarning(true);
       } else if (newRegister.regiTime === "") {
         validation = false;
         setWarnMsg("시간을 선택해주세요.");
-        setWarning(true);
-      } else if (newRegister.regiDoctor === "") {
-        validation = false;
-        setWarnMsg("진료의를 선택해주세요.");
         setWarning(true);
       } else if (newRegister.regiState === "") {
         validation = false;
@@ -211,14 +223,34 @@ function Register() {
     }
     console.log("useEffect: ", newRegister);
   }, [selectedPatient]);
+
+  useEffect(() => {
+    if (selectedRegister) {
+      setNewRegister({
+        ...newRegister,
+        regiDate: selectedRegister.mdcr_date,
+        regiTime: selectedRegister.mdcr_hm,
+        regiDoctor: selectedRegister.mdcr_dr_id,
+        regiState: "1",
+        regiInsureanceStae: "2",
+        regiSubInsureanceState: "2",
+        regiPurpose: "2",
+        regiWay: "1",
+        regiTextarea: "",
+        rcpn_stat_cd: selectedRegister.rcpn_stat_cd,
+      });
+    }
+  }, selectedRegister);
   return (
     <>
       <div className="Register_header">
-        <div className="Register_header_icon"></div>
+        <div className="Register_header_icon">
+          <img src={docIcon} alt="icon" width="20px" height="20px" />
+        </div>
         <div className="Register_header_title">접수</div>
       </div>
       {/* 본문 디테일 부분 */}
-      {selectedPatient ? (
+      {selectedRegister ? (
         <>
           <div className="Register_contents">
             <div className="Register_contents_line">
@@ -250,7 +282,7 @@ function Register() {
                       setNewRegister({ ...newRegister, regiDate: e.value })
                     }
                     useControlButton={true}
-                    inputStyle={{ width: '85px' }}
+                    inputStyle={{ width: "85px" }}
                     required
                   />
                 </div>
@@ -364,7 +396,6 @@ function Register() {
                       setNewRegister({ ...newRegister, regiWay: e.value })
                     }
                     required
-                    
                   />
                 </div>
               </div>
@@ -414,13 +445,23 @@ function Register() {
                 </div>
                 <div className="Register_footer_createBtn">
                   {newRegister.regiDate === moment().format("YYYYMMDD") ? (
-                    <OBTButton
-                      labelText="접수"
-                      type={OBTButton.Type.small}
-                      theme={OBTButton.Theme.skyBlue}
-                      onClick={createRegister}
-                      width="80px"
-                    />
+                    newRegister.rcpn_stat_cd !== "R" ? (
+                      <OBTButton
+                        labelText="접수"
+                        type={OBTButton.Type.small}
+                        theme={OBTButton.Theme.skyBlue}
+                        onClick={createRegister}
+                        width="80px"
+                      />
+                    ) : (
+                      <OBTButton
+                        labelText="취소"
+                        type={OBTButton.Type.small}
+                        theme={OBTButton.Theme.default}
+                        onClick={() => {}}
+                        width="80px"
+                      />
+                    )
                   ) : (
                     <OBTButton
                       labelText="예약"

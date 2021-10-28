@@ -25,8 +25,7 @@ function GeneralInfo() {
     happyCard: "",
     calcRegiNo: "",
     calcDate: "",
-
-    adaptPeriod: { from: "", to: "" },
+    period: { from: "", to: "" },
   });
   return (
     <OBTFormPanel labelTextAlign={OBTFormPanel.Align.right} disabled={false}>
@@ -69,7 +68,9 @@ function GeneralInfo() {
               onChange={(e) => {
                 setGExtend({ ...gExtend, foreignYN: e.value });
               }}
+              width={"100px"}
             />
+
             <OBTDropDownList2
               displayType={OBTDropDownList2.DisplayType.text}
               list={[
@@ -82,6 +83,7 @@ function GeneralInfo() {
               value={gExtend.foreign}
               onChange={(e) => setGExtend({ ...gExtend, foreign: e.value })}
               width={"120px"}
+              disabled={!gExtend.foreignYN}
             />
           </td>
           <th>여권번호</th>
@@ -106,7 +108,7 @@ function GeneralInfo() {
               ]}
               value={gExtend.reduction}
               onChange={(e) => setGExtend({ ...gExtend, reduction: e.value })}
-              width={"120px"}
+              width={"235px"}
             />
           </td>
         </tr>
@@ -158,35 +160,58 @@ function GeneralInfo() {
             </label>
           </td>
         </tr>
-        <tr>
-          <th>국민행복카드</th>
-          <td>
-            <OBTTextField
-              value={gExtend.happyCard}
-              onChange={(e) => setGExtend({ ...gExtend, happyCard: e.value })}
-            />
-          </td>
-        </tr>
-        <tr>
-          <th>산정대상등록번호</th>
-          <td>
-            <OBTTextField
-              value={gExtend.calcRegiNo}
-              onChange={(e) => setGExtend({ ...gExtend, calcRegiNo: e.value })}
-              // maxLength={4}
-              // width={"60px"}
-            />
-          </td>
-          <th>산정진료날짜</th>
-          <td>
-            <OBTDatePicker
-              format={OBTDatePicker.Format.YYYYMMDD}
-              value={gExtend.calcDate}
-              onChange={(e) => setGExtend({ ...gExtend, calcDate: e.value })}
-              inputStyle={{ width: "100px" }}
-            />
-          </td>
-        </tr>
+        {gExtend.pregnant ? (
+          <>
+            <tr>
+              <th>국민행복카드</th>
+              <td>
+                <OBTTextField
+                  value={gExtend.happyCard}
+                  onChange={(e) =>
+                    setGExtend({ ...gExtend, happyCard: e.value })
+                  }
+                  width={"235px"}
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>산정대상등록번호</th>
+              <td>
+                <OBTTextField
+                  value={gExtend.calcRegiNo}
+                  onChange={(e) =>
+                    setGExtend({ ...gExtend, calcRegiNo: e.value })
+                  }
+                  width={"235px"}
+                />
+              </td>
+              <th>산정진료날짜</th>
+              <td>
+                <OBTDatePicker
+                  format={OBTDatePicker.Format.YYYYMMDD}
+                  value={gExtend.calcDate}
+                  onChange={(e) =>
+                    setGExtend({ ...gExtend, calcDate: e.value })
+                  }
+                  inputStyle={{ width: "155px" }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>지원금적용기간</th>
+              <td>
+                <OBTDatePicker
+                  type={OBTDatePicker.Type.period}
+                  value={gExtend.period}
+                  onChange={(e) => setGExtend({ ...gExtend, period: e.value })}
+                  inputStyle={{ width: "90px" }}
+                />
+              </td>
+            </tr>
+          </>
+        ) : (
+          false
+        )}
       </tbody>
     </OBTFormPanel>
   );

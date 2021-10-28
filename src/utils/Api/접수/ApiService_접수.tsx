@@ -4,10 +4,20 @@ const Regist_API_URL = 'http://localhost:4000/regists';
 
 
 // 환자 목록 불러오기
-export const getPatientList = async () => {
-  let list = await axios.get(Regist_API_URL+'/patients');
+// export const getPatientList = async () => {
+//   let list = await axios.get(Regist_API_URL+'/patients');
+//   return list.data;
+// };
+export const getPatientList = async (keyword) => {
+  let list = await axios.get(Regist_API_URL+'/patients', {params: {keyword}});
   return list.data;
 };
+
+export const getPatient = async (pid) => {
+  let list = await axios.get(Regist_API_URL+'/patient', {params: {pid}});
+  return list.data;
+};
+
 
 // export const getRegisterList = async () => {
 //   let list = await axios.get(Regist_API_URL+'/registers');

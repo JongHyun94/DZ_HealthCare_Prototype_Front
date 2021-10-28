@@ -51,6 +51,7 @@
   display: flex;
   flex-direction: row;  
   padding: 4px;
+  font-size: 15px;
 }
 .PatientInfo_centerside_idWithBtns_btns{
   display: flex;
@@ -64,6 +65,7 @@
   flex-direction: row;
   align-items: center;
   font-size: 3px!important;
+  margin-left: 8px;
 }
 .PatientInfo_centerside_info1_name{
   margin: 4px;
@@ -79,14 +81,27 @@
 
 .PatientInfo_centerside_info2{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   font-size: 2px;
+  opacity: 0.8;
 }
 .PatientInfo_centerside_info2_address{
   margin: 4px;
+  display: flex;
+  flex-direction: row;
+}
+.PatientInfo_centerside_info2_address_icon{
+  height: 16px;
+  opacity: 0.2;
 }
 .PatientInfo_centerside_info2_phone{
   margin: 4px;
+  display: flex;
+  flex-direction: row;
+}
+.PatientInfo_centerside_info2_phone_icon{
+  height: 16px;
+  opacity: 0.2;
 }
 
 .PatientInfo_downside_bookInfo{

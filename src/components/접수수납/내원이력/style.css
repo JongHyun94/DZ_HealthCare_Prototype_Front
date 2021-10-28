@@ -1,6 +1,11 @@
 .PatientVisitHistory_header{
   margin: 10px;
+  display: flex;
+  flex-direction: row;
 }
 .PatientVisitHistory_content{
   margin: 10px;
+}
+.PatientVisitHistory_header_content{
+  font-size: small;
 }

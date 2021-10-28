@@ -5,6 +5,7 @@ import { selPatientDB } from "../../../atoms/접수_수납/Recoils_접수_수납
 import { IPatient } from "../../../types/접수/Interface_접수";
 import { getVitalPatientLists } from "../../../utils/Api/접수/ApiService_접수";
 import { initializeVitalGrid } from "../../../utils/Grid/grid-initialized";
+import "./style.css";
 function VitalSign() {
   const selectedPatient = useRecoilValue<IPatient | undefined>(selPatientDB);
   const [vitalGrid, setVitalGrid] = useState(() => initializeVitalGrid());
@@ -49,7 +50,7 @@ function VitalSign() {
       </div>
       <div className="VitalSign_content">
         <OBTListGrid
-          height="140px"
+          height="100px"
           interface={vitalGrid}
           onChange={() => changeHandler()}
         />
