@@ -337,7 +337,7 @@ input:disabled {
 /* Common : Content */
 .his .his-content {
   overflow: hidden;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   position: absolute;
   top: 48px;
   bottom: 0;

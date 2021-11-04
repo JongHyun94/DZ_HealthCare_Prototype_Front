@@ -86,11 +86,11 @@ function RegistList() {
     });
   };
   const getRegisterList = async (startDate) => {
-    console.log("startDate: ", startDate);
+    // console.log("startDate: ", startDate);
     let data = await getRegisterListByDate(
       moment(startDate).format("YYYYMMDD")
     );
-    console.log("dbData: ", data);
+    // console.log("dbData: ", data);
     // let data = await getRegisterListByDateAndState(moment(startDate).format("YYYYMMDD"), regiState)
     setRegisterListForDB(data);
     countRegisterState(data);
@@ -166,7 +166,7 @@ function RegistList() {
 
   const searchData = (keyword) => {
     return new Promise((resolve, reject) => {
-      console.log(filterPatientListDB);
+      // console.log(filterPatientListDB);
       let tempPatientList = JSON.parse(JSON.stringify(filterPatientListDB));
       let result = tempPatientList.filter(isMatch(keyword));
       resolve(result);
@@ -209,8 +209,8 @@ function RegistList() {
 
   // 클릭시 데이터 바인딩 
   regiGrid.onClicked.add((e) => {
-    console.log("click pid", e.values.pid);
-    console.log("click rcpn_sqno", e.values.rcpn_sqno);
+    // console.log("click pid", e.values.pid);
+    // console.log("click rcpn_sqno", e.values.rcpn_sqno);
     findPatient(e.values.pid);
     if(e.values.rcpn_sqno){
       let selRegi = registerListForDB.find((regi : any) => {
@@ -237,7 +237,7 @@ function RegistList() {
 
   const findPatient = async(pid) => {
     let selectedPatientDB = await getPatient(pid);
-    console.log(selectedPatientDB);
+    // console.log(selectedPatientDB);
     setSelectedPatient(selectedPatientDB);
   };
 
@@ -250,7 +250,7 @@ function RegistList() {
 
   // Hook
   useEffect(() => {
-    console.log("first []");
+    // console.log("first []");
     let data = getRegisterList(startDate);
 
     regiGrid.readData({
@@ -314,7 +314,7 @@ function RegistList() {
                     return true;
                   }
                 });
-                console.log("선택된 환자: ", selPatient);
+                // console.log("선택된 환자: ", selPatient);
                 setSelectedPatient(selPatient);
               }
             }}

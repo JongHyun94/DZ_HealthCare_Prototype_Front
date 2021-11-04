@@ -1,10 +1,9 @@
+import msg from "./messenger.png";
 function SideMessenger() {
   return (
     <>
-      <div>
-        메신저 구역
-      </div>
+      <img style={{maxHeight:"880px",maxWidth:"300px"}} src={msg} alt="메신저영역"/>
     </>
   );
-};
+}
 export default SideMessenger;

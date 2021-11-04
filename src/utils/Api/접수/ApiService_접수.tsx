@@ -44,6 +44,13 @@ export const createNewRegister = async (newRegister) => {
   return list.data;
 };
 
+//접수 업데이트 
+export const updateNewRegister = async (updateRegister) => {
+  console.log("updateRegister:",updateRegister);
+  let list = await axios.put(Regist_API_URL+'/registers', updateRegister);
+  return list.data;
+};
+
 // 신체사정 불러오기
 export const getVitalPatientLists = async (pid) => {
   let list = await axios.get(Regist_API_URL+'/vital', {params: {pid}});

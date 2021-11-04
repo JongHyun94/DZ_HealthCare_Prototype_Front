@@ -50,7 +50,7 @@ function VitalSign() {
       </div>
       <div className="VitalSign_content">
         <OBTListGrid
-          height="100px"
+          height="95px"
           interface={vitalGrid}
           onChange={() => changeHandler()}
         />

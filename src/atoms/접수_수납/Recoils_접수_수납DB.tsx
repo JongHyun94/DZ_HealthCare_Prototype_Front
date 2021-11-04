@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { IPatient } from '../../types/접수/Interface_접수';
+import { IPatient, IRegister } from '../../types/접수/Interface_접수';
 
 
 //*********************************************
@@ -41,7 +41,7 @@ export const regiListDB = atom({
 //*********************************************
 // 선택된 진료 정보
 //*********************************************
-export const selRegiDB = atom<any | undefined>({
+export const selRegiDB = atom<IRegister | undefined>({
     key: 'selRegiDB',
     default: undefined,
 })

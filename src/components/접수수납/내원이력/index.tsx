@@ -47,7 +47,7 @@ function PatientVisitHistory() {
       </div>
       <div className="PatientVisitHistory_content">
         <OBTListGrid
-          height="220px"
+          height="215px"
           interface={visitGrid}
           onChange={() => changeHandler()}
         />

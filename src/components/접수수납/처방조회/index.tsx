@@ -73,7 +73,7 @@ function PrescriptionInquiry() {
       </div>
       <div className="PrescriptionInquiry_content">
         <OBTListGrid
-          height="200px"
+          height="220px"
           interface={presGrid}
           onChange={() => changeHandler()}
         />

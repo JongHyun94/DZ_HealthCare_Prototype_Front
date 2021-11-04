@@ -7,9 +7,14 @@ import {
 } from "luna-orbit";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { selPatientDB } from "../../../atoms/접수_수납/Recoils_접수_수납DB";
+import {
+  selPatientDB,
+  selRegiDB,
+} from "../../../atoms/접수_수납/Recoils_접수_수납DB";
 import docIcon from "./docIcon.png";
 import { useEffect } from "react";
+import payIcon from "./card-payment.png";
+import { IRegister } from "../../../types/접수/Interface_접수";
 function MedicalExpense() {
   const [price, setPrice] = useState({
     price1: 0,
@@ -39,6 +44,10 @@ function MedicalExpense() {
     p4_: 0,
   });
   const [selectedPatient, setSelectedPatient] = useRecoilState(selPatientDB);
+  // 선택된 접수
+  const [selectedRegister, setSelectedRegister] = useRecoilState<
+    IRegister | undefined
+  >(selRegiDB);
   const [payOpen, setPayOpen] = useState(false);
   const openHandler = () => {
     setPayOpen(!payOpen);
@@ -50,8 +59,8 @@ function MedicalExpense() {
     letterNo: "",
     bank: 0,
   });
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     setPrice({
       price1: 10000,
       price2: 2000,
@@ -68,8 +77,8 @@ function MedicalExpense() {
       price13: 0,
       price14: 0,
       price15: 0,
-    })
-  },[selectedPatient]);
+    });
+  }, [selectedPatient]);
   return (
     <div className="MedicalExpense">
       <div className="MedicalExpense_header">
@@ -81,10 +90,10 @@ function MedicalExpense() {
         </div>
         <div className="MedicalExpense_header_right">
           <div className="MedicalExpense_header_right_title">
-            진료비확인번호
+            {selectedRegister ? "진료비확인번호" : false}
           </div>
           <div className="MedicalExpense_header_right_no">
-            {selectedPatient ? "1123-4432-1123" : false}
+            {selectedRegister ? "1123-4432-1123" : false}
           </div>
         </div>
       </div>
@@ -93,7 +102,7 @@ function MedicalExpense() {
           payOpen ? "MedicalExpense_content_Open" : "MedicalExpense_content"
         }
       >
-        {selectedPatient ? (
+        {selectedRegister ? (
           <>
             <OBTFormPanel
               labelTextAlign={OBTFormPanel.Align.center}
@@ -153,7 +162,9 @@ function MedicalExpense() {
                     </div>
                   </th>
                   <td colSpan={2}>
-                    <div className="prices">{price.price2 + price.price4}원</div>
+                    <div className="prices">
+                      {price.price2 + price.price4}원
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -164,7 +175,15 @@ function MedicalExpense() {
                     </div>
                   </th>
                   <td colSpan={2}>
-                    <div className="prices">{price.price1 + price.price2 + price.price3 + price.price4 + price.price6 + price.price7}원</div>
+                    <div className="prices">
+                      {price.price1 +
+                        price.price2 +
+                        price.price3 +
+                        price.price4 +
+                        price.price6 +
+                        price.price7}
+                      원
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -175,7 +194,14 @@ function MedicalExpense() {
                     </div>
                   </th>
                   <td colSpan={2}>
-                    <div className="prices">{price.price1 + price.price3 - price.price5 + price.price6 + price.price7}원</div>
+                    <div className="prices">
+                      {price.price1 +
+                        price.price3 -
+                        price.price5 +
+                        price.price6 +
+                        price.price7}
+                      원
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -190,15 +216,15 @@ function MedicalExpense() {
                   <td colSpan={2}>
                     <OBTNumberField
                       value={price11.p1_}
-                      onChange={(e) =>
-                        {
+                      onChange={(e) => {
                         setPrice11({
                           ...price11,
-                          p1_: (isNaN(parseInt("" + e.value))) ? 0 : parseInt("" + e.value),
-                        })
+                          p1_: isNaN(parseInt("" + e.value))
+                            ? 0
+                            : parseInt("" + e.value),
+                        });
                         console.log(e.value);
-                      }
-                      }
+                      }}
                       placeHolder={"사용금액을 입력하세요."}
                     />
                   </td>
@@ -214,15 +240,15 @@ function MedicalExpense() {
                   <td colSpan={2}>
                     <OBTNumberField
                       value={price11.p2_}
-                      onChange={(e) =>
-                        {
+                      onChange={(e) => {
                         setPrice11({
                           ...price11,
-                          p2_: (isNaN(parseInt("" + e.value))) ? 0 : parseInt("" + e.value),
-                        })
+                          p2_: isNaN(parseInt("" + e.value))
+                            ? 0
+                            : parseInt("" + e.value),
+                        });
                         console.log(e.value);
-                      }
-                      }
+                      }}
                       placeHolder={"사용금액을 입력하세요."}
                     />
                   </td>
@@ -238,15 +264,15 @@ function MedicalExpense() {
                   <td colSpan={2}>
                     <OBTNumberField
                       value={price11.p3_}
-                      onChange={(e) =>
-                        {
+                      onChange={(e) => {
                         setPrice11({
                           ...price11,
-                          p3_: (isNaN(parseInt("" + e.value))) ? 0 : parseInt("" + e.value),
-                        })
+                          p3_: isNaN(parseInt("" + e.value))
+                            ? 0
+                            : parseInt("" + e.value),
+                        });
                         console.log(e.value);
-                      }
-                      }
+                      }}
                       placeHolder={"사용금액을 입력하세요."}
                     />
                   </td>
@@ -262,15 +288,15 @@ function MedicalExpense() {
                   <td colSpan={2}>
                     <OBTNumberField
                       value={price11.p4_}
-                      onChange={(e) =>
-                        {
+                      onChange={(e) => {
                         setPrice11({
                           ...price11,
-                          p4_: (isNaN(parseInt("" + e.value))) ? 0 : parseInt("" + e.value),
-                        })
+                          p4_: isNaN(parseInt("" + e.value))
+                            ? 0
+                            : parseInt("" + e.value),
+                        });
                         console.log(e.value);
-                      }
-                      }
+                      }}
                       placeHolder={"사용금액을 입력하세요."}
                     />
                   </td>
@@ -304,15 +330,15 @@ function MedicalExpense() {
                   <td colSpan={2}>
                     <OBTNumberField
                       value={price.price15}
-                      onChange={(e) =>
-                        {
+                      onChange={(e) => {
                         setPrice({
                           ...price,
-                          price15: (isNaN(parseInt("" + e.value))) ? 0 : parseInt("" + e.value),
-                        })
+                          price15: isNaN(parseInt("" + e.value))
+                            ? 0
+                            : parseInt("" + e.value),
+                        });
                         console.log(e.value);
-                      }
-                      }
+                      }}
                       placeHolder={"감액금액을 입력하세요."}
                     />
                   </td>
@@ -321,10 +347,31 @@ function MedicalExpense() {
             </OBTFormPanel>
           </>
         ) : (
-          false
+          <>
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "lightgray",
+                opacity: 0.7,
+                zIndex: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ width: 100, height: 100 }}>
+                <img src={payIcon} alt="아이콘" width={100} />
+              </div>
+              <br />
+              <p style={{ fontSize: 12 }}>진료 및 검사가 완료된 후</p>
+              <p style={{ fontSize: 12 }}>수납계산이 가능합니다.</p>
+            </div>
+          </>
         )}
       </div>
-      {selectedPatient ? (
+      {selectedRegister ? (
         <>
           <div
             className={
@@ -357,8 +404,12 @@ function MedicalExpense() {
               <div className="MedicalExpense_payment_totalprice_right">
                 {parseInt(
                   String(
-                      (price.price1 + price.price3 - price.price5 + price.price6 + price.price7) -
-                      (price11.p1_ + price11.p2_ + price11.p3_ + price11.p4_) + 
+                    price.price1 +
+                      price.price3 -
+                      price.price5 +
+                      price.price6 +
+                      price.price7 -
+                      (price11.p1_ + price11.p2_ + price11.p3_ + price11.p4_) +
                       price.price12 -
                       price.price13 -
                       price.price14 -
@@ -389,7 +440,9 @@ function MedicalExpense() {
                         onChange={(e) =>
                           setPayment({
                             ...payment,
-                            card: (isNaN(parseInt("" + e.value))) ? 0 : parseInt("" + e.value),
+                            card: isNaN(parseInt("" + e.value))
+                              ? 0
+                              : parseInt("" + e.value),
                           })
                         }
                       />
@@ -427,7 +480,9 @@ function MedicalExpense() {
                         onChange={(e) =>
                           setPayment({
                             ...payment,
-                            letter: (isNaN(parseInt("" + e.value))) ? 0 : parseInt("" + e.value),
+                            letter: isNaN(parseInt("" + e.value))
+                              ? 0
+                              : parseInt("" + e.value),
                           })
                         }
                       />
@@ -525,7 +580,17 @@ function MedicalExpense() {
           </div>
         </>
       ) : (
-        false
+        <>
+          <div
+            style={{
+              width: "100%",
+              height: "300px",
+              backgroundColor: "lightgray",
+              opacity: 0.7,
+              zIndex: 1,
+            }}
+          ></div>
+        </>
       )}
     </div>
   );

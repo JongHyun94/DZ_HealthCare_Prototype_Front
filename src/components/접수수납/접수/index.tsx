@@ -13,7 +13,10 @@ import {
   selPatientDB,
   selRegiDB,
 } from "../../../atoms/접수_수납/Recoils_접수_수납DB";
-import { createNewRegister } from "../../../utils/Api/접수/ApiService_접수";
+import {
+  createNewRegister,
+  updateNewRegister,
+} from "../../../utils/Api/접수/ApiService_접수";
 import { useEffect } from "react";
 import docIcon from "./docIcon.png";
 
@@ -112,6 +115,7 @@ function Register() {
 
   // 접수 상태
   const [newRegister, setNewRegister] = useState({
+    rcpn_sqno: undefined,
     regiDate: moment().format("YYYYMMDD"),
     regiTime: "",
     regiDoctor: "",
@@ -123,7 +127,7 @@ function Register() {
     regiTextarea: "",
     regiHealthCheck: false,
 
-    regiHsptCd: "",
+    regiHsptCd: "10260084",
     pid: "",
     rcpn_stat_cd: "",
   });
@@ -212,7 +216,26 @@ function Register() {
       console.log("접수생성: ", newRegister);
     }
   };
-
+  const updateRegister = async (stat) => {
+    console.log("업데이트", newRegister.rcpn_stat_cd);
+    // setNewRegister({
+    //   ...newRegister,
+    //   rcpn_stat_cd: stat,
+    // });
+    // let result = await updateNewRegister(newRegister);
+    // console.log("업데이트 완료");
+    // console.log("Update result", result);
+  };
+  const makeNewRegister = () => {
+    console.log("newRegister:", newRegister);
+    if (selectedPatient) {
+      setSelectedRegister(newRegister);
+    } else {
+      console.log(selectedPatient);
+      setWarnMsg("환자를 선택해주세요.");
+      setWarning(true);
+    }
+  };
   useEffect(() => {
     if (selectedPatient) {
       setNewRegister({
@@ -221,13 +244,14 @@ function Register() {
         regiHsptCd: selectedPatient.hspt_cd,
       });
     }
-    console.log("useEffect: ", newRegister);
+    // console.log("useEffect: ", newRegister);
   }, [selectedPatient]);
 
   useEffect(() => {
     if (selectedRegister) {
       setNewRegister({
         ...newRegister,
+        rcpn_sqno: selectedRegister.rcpn_sqno,
         regiDate: selectedRegister.mdcr_date,
         regiTime: selectedRegister.mdcr_hm,
         regiDoctor: selectedRegister.mdcr_dr_id,
@@ -242,7 +266,7 @@ function Register() {
     }
   }, selectedRegister);
   return (
-    <>
+    <div className="Register">
       <div className="Register_header">
         <div className="Register_header_icon">
           <img src={docIcon} alt="icon" width="20px" height="20px" />
@@ -409,7 +433,7 @@ function Register() {
                   onChange={(e) => {
                     setNewRegister({ ...newRegister, regiTextarea: e.value });
                   }}
-                  width="505px"
+                  width="525px"
                   height="50px"
                   placeHolder="접수메모를 입력해주세요."
                 />
@@ -458,7 +482,13 @@ function Register() {
                         labelText="취소"
                         type={OBTButton.Type.small}
                         theme={OBTButton.Theme.default}
-                        onClick={() => {}}
+                        onClick={() => {
+                          setNewRegister({
+                            ...newRegister,
+                            rcpn_stat_cd: "C",
+                          });
+                          updateRegister("C");
+                        }}
                         width="80px"
                       />
                     )
@@ -475,27 +505,37 @@ function Register() {
               </>
             )}
           </div>
-          {warning === true && (
-            <OBTSnackbar
-              labelText={warnMsg}
-              type={OBTSnackbar.Type.warning}
-              open={warning}
-              onChange={(e) => setWarning(false)}
-            />
-          )}
-          {createSuccessSnackbarState === true && (
-            <OBTSnackbar
-              labelText={successMsg}
-              type={OBTSnackbar.Type.success}
-              open={createSuccessSnackbarState}
-              onChange={(e) => setCreateSuccessSnackbarState(false)}
-            />
-          )}
         </>
       ) : (
-        false
+        <>
+          <div className="makeNewRegister">
+            {/* <button className="makeNewRegisterBtn">신규 접수</button> */}
+            <OBTButton
+              width="120px"
+              height="50px"
+              labelText={"신규등록"}
+              onClick={makeNewRegister}
+            />
+          </div>
+        </>
       )}
-    </>
+      {warning === true && (
+        <OBTSnackbar
+          labelText={warnMsg}
+          type={OBTSnackbar.Type.warning}
+          open={warning}
+          onChange={(e) => setWarning(false)}
+        />
+      )}
+      {createSuccessSnackbarState === true && (
+        <OBTSnackbar
+          labelText={successMsg}
+          type={OBTSnackbar.Type.success}
+          open={createSuccessSnackbarState}
+          onChange={(e) => setCreateSuccessSnackbarState(false)}
+        />
+      )}
+    </div>
   );
 }
 export default Register;

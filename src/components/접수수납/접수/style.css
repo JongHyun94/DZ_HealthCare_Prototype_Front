@@ -1,6 +1,13 @@
+.Register{
+  display: flex;
+  flex-direction: column;
+  margin: 5;
+  height: calc(100%);
+}
 .Register_header {
   border-bottom: lightgray 1px solid;
   padding: 5px;
+  margin: 5px 5px 1px 5px;
   display: flex;
   flex-direction: row;
 }
@@ -18,7 +25,7 @@
 .Register_contents_line{
   display: flex;
   flex-direction: row;
-  width: calc(100%-30px);
+  width: calc(100% - 20px);
   height: 50px;
   margin: 10px;
   justify-content: space-between;
@@ -35,13 +42,13 @@
   font-size: 12px;
 }
 .Register_contents_line_memo{
-
+  width: calc(100% - 20px);
 }
 .Register_footer{
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin: 10px;
+  margin: 0px 10px 10px 10px;
 }
 .Register_footer_check{
 
@@ -51,4 +58,21 @@
 }
 .Register_footer_createBtn{
   padding-left: 5px;
+}
+
+.makeNewRegister{
+  width: calc(100%);
+  height: calc(100% - 30px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgray;
+  opacity: 0.7;
+  /* margin: 0px 5px 5px 5px; */
+}
+.makeNewRegisterBtn{
+  /* width: 150px;
+  height: 80px;
+  border: ; */
 }

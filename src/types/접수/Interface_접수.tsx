@@ -43,7 +43,7 @@ interface IPatient {
 
 interface IRegister {
   hspt_cd: string;
-  rcpn_sqno: number;
+  rcpn_sqno: number | undefined;
   rcpn_dvcd: string;
   pid: string;
   pt_nm: string;
