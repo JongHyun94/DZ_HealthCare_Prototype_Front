@@ -1,11 +1,11 @@
 import { OBTListGridInterface } from "luna-orbit";
 import moment from "moment";
 import { StandardDesign } from "luna-orbit/OBTDataGrid/OBTDataGridInterface";
-import {
-  getRegisterListByDate,
-} from "../Api/접수/ApiService_접수";
+import { getRegisterListByDate } from "../Api/접수/ApiService_접수";
 import { ColumnType } from "luna-orbit/OBTListGrid/IColumn";
 import { ColumnAlignment } from "luna-orbit/OBTListGrid/OBTListGridInterface";
+import loupe from "./see.png";
+import slide from "./slide.png";
 
 export const initializeRegiGrid = () => {
   const grid = new OBTListGridInterface("grid", {
@@ -78,9 +78,9 @@ export const initializeRegiGrid = () => {
         useImageLabel: true,
         imageLabelBackgroundColor: (value) => {
           if (value === "예약") {
-            return '#a708f1';
+            return "#a708f1";
           } else if (value === "접수") {
-            return '#02b4fa';
+            return "#02b4fa";
           } else if (value === "진료중") {
             return StandardDesign.MessageColorRGB.inProgress;
           } else if (value === "수납대기") {
@@ -91,31 +91,31 @@ export const initializeRegiGrid = () => {
             return StandardDesign.MessageColorRGB.negative1;
           } else if (value === "보류") {
             return StandardDesign.MessageColorRGB.negative2;
-          } 
+          }
           return StandardDesign.MessageColorRGB.pending2;
         },
       },
-              // maskType: "custom",
-        // editMask: "string",
-        // customMaskCallback: (value) => {
-        //   if (value === "V") {
-        //     return "예약";
-        //   } else if (value === "R") {
-        //     return "접수";
-        //   } else if (value === "M") {
-        //     return "진료중";
-        //   } else if (value === "T") {
-        //     return "수납대기";
-        //   } else if (value === "D") {
-        //     return "완료";
-        //   } else if (value === "C") {
-        //     return "취소";
-        //   } else if (value === "W") {
-        //     return "보류";
-        //   } else {
-        //     return "알수없는값"
-        //   }
-        // },
+      // maskType: "custom",
+      // editMask: "string",
+      // customMaskCallback: (value) => {
+      //   if (value === "V") {
+      //     return "예약";
+      //   } else if (value === "R") {
+      //     return "접수";
+      //   } else if (value === "M") {
+      //     return "진료중";
+      //   } else if (value === "T") {
+      //     return "수납대기";
+      //   } else if (value === "D") {
+      //     return "완료";
+      //   } else if (value === "C") {
+      //     return "취소";
+      //   } else if (value === "W") {
+      //     return "보류";
+      //   } else {
+      //     return "알수없는값"
+      //   }
+      // },
     ])
     .setProvider({
       // 데이터 관련 interface 사용 → * Interface 속성 참고 *
@@ -131,15 +131,13 @@ export const initializeRegiGrid = () => {
       },
     });
   return grid;
-}
+};
 // 접수 목록 Grid API
 const getRegisterList = async (startDate) => {
-  let data = await getRegisterListByDate(
-    moment(startDate).format("YYYYMMDD")
-  );
-  console.log("first data", data)
+  let data = await getRegisterListByDate(moment(startDate).format("YYYYMMDD"));
+  console.log("first data", data);
   return data;
-}
+};
 // 신체사정 Grid API
 // const getVitalList = async (pid) => {
 //   let result = await getVitalPatientLists(pid);
@@ -258,81 +256,117 @@ export function initializeVisitGrid(): any {
     .setColumns([
       // 컬럼을 설정 → * IColumn 속성 참고 *
       {
-        name: "inpt_dt",
+        name: "a",
         header: "진료일",
         type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
       {
-        name: "sbp",
+        name: "b",
         header: "진료시간",
-        type: ColumnType.number,
+        type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
       {
-        name: "pr",
+        name: "c",
         header: "진료과",
-        type: ColumnType.number,
+        type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
       {
-        name: "rr",
+        name: "d",
         header: "진료의",
-        type: ColumnType.number,
+        type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
       {
-        name: "bt",
+        name: "e",
         header: "수납",
         type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
       {
-        name: "fbs",
+        name: "f",
         header: "미수금",
         type: ColumnType.number,
         width: 30,
         alignment: ColumnAlignment.center,
+        dynamicStyles: (grid, index, value) => {
+          if (value) {
+              return {
+                  //다양한 스타일을 지정할 수 있습니다. 자동완성으로 확인해보세요.
+                  foreground: "rgb(255, 119, 119)",
+                  iconPadding: 20,
+                  iconIndex: 0 // iconImageList 에서 등록한 아이콘에서 0번째 이미지를 사용하겠다는 의미
+              }
+          } 
+          else {
+              return {
+                  iconIndex: -1 // -1 이면 아이콘을 표시하지 않는다.
+              }
+          }
+      }
       },
       {
-        name: "hght",
+        name: "g",
         header: "보험구분",
-        type: ColumnType.number,
+        type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
       {
-        name: "wght",
+        name: "h",
         header: "보험보조유형",
-        type: ColumnType.number,
+        type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
       {
-        name: "bmi",
+        name: "i",
         header: "주상병코드",
         type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
       {
-        name: "bmi",
+        name: "j",
+        header: "주상병명",
+        type: ColumnType.text,
+        width: 30,
+        alignment: ColumnAlignment.center,
+      },
+      {
+        name: "k",
         header: "특정기호",
         type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
       {
-        name: "bmi",
+        name: "l",
         header: "처방내역",
-        type: ColumnType.text,
+        type: ColumnType.button,
         width: 30,
-        alignment: ColumnAlignment.center,
+        alignment: ColumnAlignment.left,
+        imageButtons: {
+          width: 40,
+          height: 32,
+          margin: 20, // 그 밖에 height, width, imageGap ..등등
+          images: [
+            {
+              name: "보기",
+              up: loupe,
+              hover: loupe,
+              down: loupe,
+              cursor: "pointer",
+            },
+          ],
+        },
       },
     ])
     .setProvider({
@@ -379,21 +413,33 @@ export function initializePresGrid(): any {
       {
         name: "sbp",
         header: "실시여부",
-        type: ColumnType.number,
+        type: ColumnType.button,
         width: 30,
         alignment: ColumnAlignment.center,
+        imageButtons: {
+          margin: 40, // 그 밖에 height, width, imageGap ..등등
+          images: [
+            {
+              name: "",
+              up: slide,
+              hover: slide,
+              down: slide,
+              cursor: "pointer",
+            },
+          ],
+        },
       },
       {
         name: "pr",
         header: "D/C",
-        type: ColumnType.number,
+        type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
       {
         name: "rr",
         header: "처방코드",
-        type: ColumnType.number,
+        type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
@@ -407,7 +453,7 @@ export function initializePresGrid(): any {
       {
         name: "fbs",
         header: "용법",
-        type: ColumnType.number,
+        type: ColumnType.text,
         width: 30,
         alignment: ColumnAlignment.center,
       },
@@ -426,7 +472,7 @@ export function initializePresGrid(): any {
         alignment: ColumnAlignment.center,
       },
       {
-        name: "bmi",
+        name: "ast",
         header: "AST",
         type: ColumnType.text,
         width: 30,

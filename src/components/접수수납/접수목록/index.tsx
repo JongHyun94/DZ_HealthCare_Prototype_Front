@@ -304,7 +304,7 @@ function RegistList() {
         {/* 제목 */}
         <div className="RegistList_header_1">
           접수목록
-          <OBTButton
+          {/* <OBTButton
             labelText="데이터 검색"
             onClick={() => {
               regiGrid.searchData(0, null, "13", true, false);
@@ -318,7 +318,7 @@ function RegistList() {
                 setSelectedPatient(selPatient);
               }
             }}
-          />
+          /> */}
         </div>
         {/* yyyy-mm-dd today search */}
         <div className="RegistList_header_2">

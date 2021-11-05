@@ -82,7 +82,7 @@ function PatientSearchBar() {
   const initSelectedPatient = () => {
     setSerachKeyword("");
     setSelectedPatientDB(undefined);
-    setSelectedDoctor("first");
+    setSelectedDoctor("doctor1");
     setSelectedRegister(undefined);
   };
 

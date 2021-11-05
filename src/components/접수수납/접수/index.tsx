@@ -19,6 +19,7 @@ import {
 } from "../../../utils/Api/접수/ApiService_접수";
 import { useEffect } from "react";
 import docIcon from "./docIcon.png";
+import { IRegister } from "../../../types/접수/Interface_접수";
 
 function Register() {
   // 선택된 환자
@@ -88,10 +89,10 @@ function Register() {
 
   const purposeList = [
     { value: "", text: "선택하세요" },
-    { value: "1", text: "진료" },
-    { value: "2", text: "상담" },
-    { value: "3", text: "진료기록부 발급" },
-    { value: "4", text: "대리접수" },
+    { value: "A", text: "진료" },
+    { value: "B", text: "상담" },
+    { value: "C", text: "진료기록부 발급" },
+    { value: "D", text: "대리접수" },
   ];
 
   const wayList = [
@@ -114,22 +115,42 @@ function Register() {
   // 접수메모
 
   // 접수 상태
-  const [newRegister, setNewRegister] = useState({
-    rcpn_sqno: undefined,
-    regiDate: moment().format("YYYYMMDD"),
-    regiTime: "",
-    regiDoctor: "",
-    regiState: "",
-    regiInsureanceStae: "",
-    regiSubInsureanceState: "",
-    regiPurpose: "",
-    regiWay: "",
-    regiTextarea: "",
-    regiHealthCheck: false,
+  const [newRegister, setNewRegister] = useState<IRegister>({
+    // rcpn_sqno: undefined,
+    // regiDate: moment().format("YYYYMMDD"),
+    // regiTime: "",
+    // regiDoctor: "",
+    // regiState: "",
+    // regiInsureanceState: "",
+    // regiSubInsureanceState: "",
+    // regiPurpose: "",
+    // regiWay: "",
+    // regiTextarea: "",
+    // regiHealthCheck: false,
 
-    regiHsptCd: "10260084",
+    // regiHsptCd: "10260084",
+    // pid: "",
+    // rcpn_stat_cd: "",
+
+    hspt_cd: "10260084",
+    rcpn_sqno: undefined,
+    rcpn_dvcd: "",
     pid: "",
+    pt_nm: "",
+    mdcr_date: moment().format("YYYYMMDD"),
+    mdcr_hm: "",
+    mcrm_cd: "",
+    mddp_cd: "",
+    mdcr_dr_id: "",
+    user_nm: "",
+    pt_arvl_dt: "",
     rcpn_stat_cd: "",
+    rcpn_stat: "",
+    rcpn_memo: "",
+    insn_tycd: "",
+    type_asst_cd: "",
+    cmhs_path_cd: "",
+    fvnr_dvcd: "",
   });
 
   // 스낵바 상태
@@ -145,7 +166,7 @@ function Register() {
     console.log("건강검진접수");
     setNewRegister({
       ...newRegister,
-      regiHealthCheck: !newRegister.regiHealthCheck,
+      // regiHealthCheck: !newRegister.regiHealthCheck,
     });
   };
   // 접수 초기화 버튼
@@ -153,16 +174,17 @@ function Register() {
     console.log("접수초기화");
     setNewRegister({
       ...newRegister,
-      regiDate: moment().format("YYYYMMDD"),
-      regiTime: "",
-      regiDoctor: "",
-      regiState: "",
-      regiInsureanceStae: "",
-      regiSubInsureanceState: "",
-      regiPurpose: "",
-      regiWay: "",
-      regiTextarea: "",
-      regiHealthCheck: false,
+      mdcr_date: moment().format("YYYYMMDD"),
+      mdcr_hm: "",
+      mdcr_dr_id: "",
+      fvnr_dvcd: "",
+      insn_tycd: "",
+      type_asst_cd: "",
+      rcpn_dvcd: "",
+      cmhs_path_cd: "",
+      rcpn_memo: "",
+      // regiHealthCheck: false,
+      rcpn_stat_cd: "",
     });
   };
 
@@ -170,45 +192,45 @@ function Register() {
   const createRegister = async (e) => {
     if (newRegister) {
       let validation = true;
-      if (newRegister.regiDoctor === "") {
+      if (newRegister.mdcr_dr_id === "") {
         validation = false;
         setWarnMsg("진료의를 선택해주세요.");
         setWarning(true);
-      } else if (newRegister.regiDate !== moment().format("YYYYMMDD")) {
+      } else if (newRegister.mdcr_date !== moment().format("YYYYMMDD")) {
         validation = false;
         setWarnMsg("날짜를 정확히 선택해주세요.");
         setWarning(true);
-      } else if (newRegister.regiTime === "") {
+      } else if (newRegister.mdcr_hm === "") {
         validation = false;
         setWarnMsg("시간을 선택해주세요.");
         setWarning(true);
-      } else if (newRegister.regiState === "") {
+      } else if (newRegister.fvnr_dvcd === "") {
         validation = false;
         setWarnMsg("초/재진을 선택해주세요.");
         setWarning(true);
-      } else if (newRegister.regiInsureanceStae === "") {
+      } else if (newRegister.insn_tycd === "") {
         validation = false;
         setWarnMsg("보험구분을 선택해주세요.");
         setWarning(true);
-      } else if (newRegister.regiSubInsureanceState === "") {
+      } else if (newRegister.type_asst_cd === "") {
         validation = false;
         setWarnMsg("보험보조유형을 선택해주세요.");
         setWarning(true);
-      } else if (newRegister.regiPurpose === "") {
+      } else if (newRegister.rcpn_dvcd === "") {
         validation = false;
         setWarnMsg("내원목적을 선택해주세요.");
         setWarning(true);
-      } else if (newRegister.regiWay === "") {
+      } else if (newRegister.cmhs_path_cd === "") {
         validation = false;
         setWarnMsg("외래경로를 선택해주세요.");
         setWarning(true);
       } else if (validation) {
         setWarnMsg("");
-        if (newRegister.regiHealthCheck) {
-          setSuccessMsg("건강검진 접수 완료");
-        } else {
-          setSuccessMsg("접수 완료");
-        }
+        // if (newRegister.regiHealthCheck) {
+        //   setSuccessMsg("건강검진 접수 완료");
+        // } else {
+        //   setSuccessMsg("접수 완료");
+        // }
         let result = await createNewRegister(newRegister);
         console.log("접수완료: ", result);
         setCreateSuccessSnackbarState(true);
@@ -218,16 +240,16 @@ function Register() {
   };
   const updateRegister = async (stat) => {
     console.log("업데이트", newRegister.rcpn_stat_cd);
-    // setNewRegister({
-    //   ...newRegister,
-    //   rcpn_stat_cd: stat,
-    // });
-    // let result = await updateNewRegister(newRegister);
-    // console.log("업데이트 완료");
-    // console.log("Update result", result);
+    setNewRegister({
+      ...newRegister,
+      rcpn_stat_cd: stat,
+    });
+    let result = await updateNewRegister(newRegister);
+    console.log("업데이트 완료");
+    console.log("Update result", result);
   };
   const makeNewRegister = () => {
-    console.log("newRegister:", newRegister);
+    // console.log("newRegister:", newRegister);
     if (selectedPatient) {
       setSelectedRegister(newRegister);
     } else {
@@ -236,13 +258,47 @@ function Register() {
       setWarning(true);
     }
   };
+
   useEffect(() => {
     if (selectedPatient) {
-      setNewRegister({
-        ...newRegister,
-        pid: selectedPatient.pid,
-        regiHsptCd: selectedPatient.hspt_cd,
-      });
+      if(selectedRegister) {
+        setNewRegister({
+          ...newRegister,
+          pid: selectedPatient.pid,
+          hspt_cd: selectedPatient.hspt_cd,
+          rcpn_sqno: selectedRegister.rcpn_sqno,
+          mdcr_date: selectedRegister.mdcr_date,
+          mdcr_hm: selectedRegister.mdcr_hm,
+          mdcr_dr_id: selectedRegister.mdcr_dr_id,
+          fvnr_dvcd: selectedRegister.fvnr_dvcd,
+          insn_tycd: selectedRegister.insn_tycd,
+          type_asst_cd: selectedRegister.type_asst_cd,
+          rcpn_dvcd: selectedRegister.rcpn_dvcd,
+          cmhs_path_cd: selectedRegister.cmhs_path_cd,
+          rcpn_memo: selectedRegister.rcpn_memo,
+          rcpn_stat_cd: selectedRegister.rcpn_stat_cd,
+        });
+      } else {
+        setNewRegister({
+          ...newRegister,
+          pid: selectedPatient.pid,
+          hspt_cd: selectedPatient.hspt_cd,
+          rcpn_sqno: undefined,
+          mdcr_date: moment().format("YYYYMMDD"),
+          mdcr_hm: "",
+          mdcr_dr_id: "",
+          fvnr_dvcd: "",
+          insn_tycd: "",
+          type_asst_cd: "",
+          rcpn_dvcd: "",
+          cmhs_path_cd: "",
+          rcpn_memo: "",
+          rcpn_stat_cd: "",
+        });
+      }
+    } 
+    return () => {
+      // initializeRegister();
     }
     // console.log("useEffect: ", newRegister);
   }, [selectedPatient]);
@@ -252,15 +308,15 @@ function Register() {
       setNewRegister({
         ...newRegister,
         rcpn_sqno: selectedRegister.rcpn_sqno,
-        regiDate: selectedRegister.mdcr_date,
-        regiTime: selectedRegister.mdcr_hm,
-        regiDoctor: selectedRegister.mdcr_dr_id,
-        regiState: "1",
-        regiInsureanceStae: "2",
-        regiSubInsureanceState: "2",
-        regiPurpose: "2",
-        regiWay: "1",
-        regiTextarea: "",
+        mdcr_date: selectedRegister.mdcr_date,
+        mdcr_hm: selectedRegister.mdcr_hm,
+        mdcr_dr_id: selectedRegister.mdcr_dr_id,
+        fvnr_dvcd: selectedRegister.fvnr_dvcd,
+        insn_tycd: selectedRegister.insn_tycd,
+        type_asst_cd: selectedRegister.type_asst_cd,
+        rcpn_dvcd: selectedRegister.rcpn_dvcd,
+        cmhs_path_cd: selectedRegister.cmhs_path_cd,
+        rcpn_memo: selectedRegister.rcpn_memo,
         rcpn_stat_cd: selectedRegister.rcpn_stat_cd,
       });
     }
@@ -285,9 +341,9 @@ function Register() {
                   <OBTDropDownList2
                     displayType={OBTDropDownList2.DisplayType.text}
                     list={doctorLists}
-                    value={newRegister.regiDoctor}
+                    value={newRegister.mdcr_dr_id}
                     onChange={(e) =>
-                      setNewRegister({ ...newRegister, regiDoctor: e.value })
+                      setNewRegister({ ...newRegister, mdcr_dr_id: e.value })
                     }
                     required
                   />
@@ -301,9 +357,9 @@ function Register() {
                 <div className="Register_contents_line_item_selectbox">
                   <OBTDatePicker
                     format={OBTDatePicker.Format.YYYYMMDD}
-                    value={newRegister.regiDate}
+                    value={newRegister.mdcr_date}
                     onChange={(e) =>
-                      setNewRegister({ ...newRegister, regiDate: e.value })
+                      setNewRegister({ ...newRegister, mdcr_date: e.value })
                     }
                     useControlButton={true}
                     inputStyle={{ width: "85px" }}
@@ -320,9 +376,9 @@ function Register() {
                   <OBTDropDownList2
                     displayType={OBTDropDownList2.DisplayType.text}
                     list={timeList}
-                    value={newRegister.regiTime}
+                    value={newRegister.mdcr_hm}
                     onChange={(e) =>
-                      setNewRegister({ ...newRegister, regiTime: e.value })
+                      setNewRegister({ ...newRegister, mdcr_hm: e.value })
                     }
                     required
                   />
@@ -338,9 +394,9 @@ function Register() {
                   <OBTDropDownList2
                     displayType={OBTDropDownList2.DisplayType.text}
                     list={regiList}
-                    value={newRegister.regiState}
+                    value={newRegister.fvnr_dvcd}
                     onChange={(e) =>
-                      setNewRegister({ ...newRegister, regiState: e.value })
+                      setNewRegister({ ...newRegister, fvnr_dvcd: e.value })
                     }
                     required
                   />
@@ -357,11 +413,11 @@ function Register() {
                   <OBTDropDownList2
                     displayType={OBTDropDownList2.DisplayType.text}
                     list={insureList}
-                    value={newRegister.regiInsureanceStae}
+                    value={newRegister.insn_tycd}
                     onChange={(e) =>
                       setNewRegister({
                         ...newRegister,
-                        regiInsureanceStae: e.value,
+                        insn_tycd: e.value,
                       })
                     }
                     required
@@ -377,11 +433,11 @@ function Register() {
                   <OBTDropDownList2
                     displayType={OBTDropDownList2.DisplayType.text}
                     list={insureSubList}
-                    value={newRegister.regiSubInsureanceState}
+                    value={newRegister.type_asst_cd}
                     onChange={(e) =>
                       setNewRegister({
                         ...newRegister,
-                        regiSubInsureanceState: e.value,
+                        type_asst_cd: e.value,
                       })
                     }
                     required
@@ -398,9 +454,9 @@ function Register() {
                   <OBTDropDownList2
                     displayType={OBTDropDownList2.DisplayType.text}
                     list={purposeList}
-                    value={newRegister.regiPurpose}
+                    value={newRegister.rcpn_dvcd}
                     onChange={(e) =>
-                      setNewRegister({ ...newRegister, regiPurpose: e.value })
+                      setNewRegister({ ...newRegister, rcpn_dvcd: e.value })
                     }
                     required
                   />
@@ -415,9 +471,9 @@ function Register() {
                   <OBTDropDownList2
                     displayType={OBTDropDownList2.DisplayType.text}
                     list={wayList}
-                    value={newRegister.regiWay}
+                    value={newRegister.cmhs_path_cd}
                     onChange={(e) =>
-                      setNewRegister({ ...newRegister, regiWay: e.value })
+                      setNewRegister({ ...newRegister, cmhs_path_cd: e.value })
                     }
                     required
                   />
@@ -428,10 +484,10 @@ function Register() {
               {/* 접수 메모 */}
               <div className="Register_contents_line_memo">
                 <OBTMultiLineTextField
-                  value={newRegister.regiTextarea}
+                  value={newRegister.rcpn_memo}
                   fixed={true}
                   onChange={(e) => {
-                    setNewRegister({ ...newRegister, regiTextarea: e.value });
+                    setNewRegister({ ...newRegister, rcpn_memo: e.value });
                   }}
                   width="525px"
                   height="50px"
@@ -455,7 +511,7 @@ function Register() {
                 width="80px"
               /> */}
             </div>
-            {newRegister.regiDate < moment().format("YYYYMMDD") ? (
+            {newRegister.mdcr_date < moment().format("YYYYMMDD") ? (
               false
             ) : (
               <>
@@ -468,7 +524,7 @@ function Register() {
                   />
                 </div>
                 <div className="Register_footer_createBtn">
-                  {newRegister.regiDate === moment().format("YYYYMMDD") ? (
+                  {newRegister.mdcr_date === moment().format("YYYYMMDD") ? (
                     newRegister.rcpn_stat_cd !== "R" ? (
                       <OBTButton
                         labelText="접수"

@@ -56,6 +56,11 @@ interface IRegister {
   pt_arvl_dt: string;
   rcpn_stat_cd: string;
   rcpn_stat: string;
+  rcpn_memo: string;
+  insn_tycd: string;
+  type_asst_cd: string;
+  cmhs_path_cd: string;
+  fvnr_dvcd: string;
 }
 
 /*
